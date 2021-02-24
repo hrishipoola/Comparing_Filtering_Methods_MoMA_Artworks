@@ -1,0 +1,1 @@
+# Comparing_Filtering_Methods_MoMA_Artworks
