@@ -1,1 +1,9 @@
-# Comparing_Filtering_Methods_MoMA_Artworks
+# Comparing Filtering Methods on MoMA Artworks
+
+We regularly filter dataframes using boolean masking, loc, query, and numpy.where. I was curious how they actually compared. I came across a similar [comparison of the three operations](https://ramiro.org/notebook/pandas-crosstab-groupby-pivot/) by Ramiro Gomez. Today, we'll demonstrate four filtering methods in achieving the same filtered dataframe and compare their ease of use and runtime. 
+
+Boolean masking, loc, query, and numpy.where can be used interchangeably as a matter of choice and data types, though I find query to be the most elegant because it doesn't require you to repeatedly call the dataframe (it also filters in place). We'll see below that, for the size of data set we're using (>100,000 records),  query is also the fastest, followed by loc, boolean, and np.where. np.where is the slowest as it must first create a list of indexes that meet our conditions.
+
+We'll work with [data](https://github.com/MuseumofModernArt/collection/blob/master/Artworks.csv) from the Museum of Modern Art (MoMA). It includes data on >130,000 artworks acquired by MoMA including title, artist, date made, medium, dimensions, and date acquired. MoMA also has data set of [artists](https://github.com/MuseumofModernArt/collection/blob/master/Artists.csv). If you're interested in other art data sets, check out these from [The Tate](https://github.com/tategallery/collection) and [Carnegie Museum of Art](https://github.com/cmoa/collection). 
+
+As an example task emphasizing performance as a filtering method, let's create a filtered dataframe of sculptures made with bronze by American or German women with first names starting with the letter K that were acquired by MoMA from 1990 onward. Let's then calculate and plot average runtime for each operation using [timeit()](https://docs.python.org/3/library/timeit.html). 
